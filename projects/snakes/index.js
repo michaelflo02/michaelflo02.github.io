@@ -126,11 +126,10 @@ function hasCollidedWithApple() {
   
   HINT: Both the apple and the snake's head are aware of their own row and column
   */
-  if (hasCollidedWithApple()) {
-    handleAppleCollision();
+
+if(apple.row === snake.head.row && apple.column === snake.head.column){
+ return true
 }
-''
-  
   return false;
 }
 
@@ -158,6 +157,24 @@ function handleAppleCollision() {
   // code to determine the row and column of the snakeSquare to add to the snake
   
   makeSnakeSquare(row, column);
+  var row = snake.tail.row;
+  var column = snake.tail.column;
+  
+  if (snake.tail.direction === "left") { 
+    column++; 
+    
+  }else if (snake.tail.direction === "right") { 
+    column--; 
+    
+  }else if (snake.tail.direction === "up") { 
+    row++; 
+    
+  }else if (snake.tail.direction === "down") { 
+    row--; 
+    
+  }
+  makeSnakeSquare(row, column);
+
 }
 
 function hasCollidedWithSnake() {

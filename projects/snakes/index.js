@@ -87,7 +87,19 @@ function moveSnake() {
   column/row properties. 
   
   */
-  
+  for (var i = snake.body.length - 1; i >= 1; i--) {
+    var snakeSquare = snake.body[i];
+    
+    var nextSnakeSquare = snake.body[i - 1];
+    var nextRow = nextSnakeSquare.row;
+    var nextColumn = nextSnakeSquare.column;
+    
+     var nextDirection = nextSnakeSquare.direction;
+    snakeSquare.direction = nextDirection;
+    
+    repositionSquare(snakeSquare, nextRow, nextColumn);
+    
+}
   
 
   
@@ -187,8 +199,11 @@ function hasCollidedWithSnake() {
   
   */
   
-  
-  return false;
+      for (var i = 1; i < snake.body.length; i++) {
+  if (snake.head.row === snake.body[i].row && snake.head.column === snake.body[i].column) {
+      return true;
+  }
+}
 }
 
 function hasHitWall() {
@@ -286,19 +301,26 @@ function getRandomAvailablePosition() {
   var randomPosition = {};
   
   /* Generate random positions until one is found that doesn't overlap with the snake */
-  while (!spaceIsAvailable) {
+ while (!spaceIsAvailable) {
     randomPosition.column = Math.floor(Math.random() * COLUMNS);
     randomPosition.row = Math.floor(Math.random() * ROWS);
     spaceIsAvailable = true;
-    
     /*
     TODO 12: After generating the random position determine if that position is
     not occupied by a snakeSquare in the snake's body. If it is then set 
     spaceIsAvailable to false so that a new position is generated.
     */
+    
+    for (var i = 0; i < snake.body.length; i++) {
+      var snakeSquare = snake.body[i];
+      if (snakeSquare.row === randomPosition.row && snakeSquare.column === randomPosition.column) {
+        spaceIsAvailable = false;
+      }
+    }
   }
   
   return randomPosition;
+
 }
 
 /* Triggered when keybord input is detected. Sets the snake head's nextDirection

@@ -290,6 +290,7 @@ function getRandomAvailablePosition() {
     randomPosition.column = Math.floor(Math.random() * COLUMNS);
     randomPosition.row = Math.floor(Math.random() * ROWS);
     spaceIsAvailable = true;
+    //
 
     /*
     TODO 12: After generating the random position determine if that position is
